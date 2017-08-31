@@ -2,6 +2,9 @@
 
 Label KITTI point cloud (3d) drivable area using provided image annotations (2d). Only tested with Python 3.
 
+* includes a new calibration file reader, tailored to KITTI road calibration files
+* includes script label point cloud
+
 # How it Works
 
 1. Project point cloud onto the camera, using calibration information.
