@@ -1,6 +1,12 @@
 # Point Cloud Projection
 
-Label KITTI point cloud drivable area using provided image annotations. Only tested with Python 3.
+Label KITTI point cloud (3d) drivable area using provided image annotations (2d). Only tested with Python 3.
+
+# How it Works
+
+1. Project point cloud onto the camera, using calibration information.
+2. Use image annotations to associate points to labels, `drivable` or otherwise.
+3. Save point cloud with associated labels.
 
 # Usage
 
