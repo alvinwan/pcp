@@ -2,6 +2,7 @@
 data_road
 data_road_velodyne
 devkit_road
+*.jpg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

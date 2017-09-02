@@ -35,18 +35,34 @@ def main():
             print('\r%s does not have a ground truth file' % filename)
             continue
         gt_labels = gt[:, :, 0]
+        h, w = gt_labels.shape
+
+        # Uncomment to visualize label, drivable area
+        # cv2.imwrite('test.jpg', gt_labels)
+
         calib = Calib(calib_path)
 
         img_points = calib.velo2img(velo_points, args.cam_idx).astype(int)
-        selector = (img_points[:, 0] < gt.shape[0]) * (img_points[:, 0] > 0) *\
-            (img_points[:, 1] < gt.shape[1]) * (img_points[:, 1] > 0)
-        img_points = img_points[selector]
+        y, x = img_points.T
+        selector = (y < h) * (y > 0) * (x < w) * (x > 0)
+        filtered_img_points = img_points[selector]
         velo_new_data = velo_data[selector]
 
-        velo_labels = []
-        for point in img_points:
-            velo_labels.append(gt_labels[tuple(point)])
-        velo_labels = np.vstack(velo_labels)
+        y, x = np.round(filtered_img_points).astype(int).T
+        velo_labels = gt_labels[y, x].reshape(y.shape[0], 1)
+
+        # Uncomment to visualize LIDAR scans
+        # zeros = np.zeros(gt_labels.shape)
+        # for point in filtered_img_points:
+        #     zeros[tuple(point)] = 255
+        # cv2.imwrite('scans.jpg', zeros)
+
+
+        # Uncomment to visualize portion of LIDAR scan labeled "drivable"
+        # img = np.zeros(gt.shape)
+        # for x, y, label in zip(x, y, velo_labels):
+        #     img[y, x] = label
+        # cv2.imwrite('drivable.jpg', img)
 
         # n x 4 (x, y, z, intensity, drivable) - excludes anything not in cam
         velo_new_data = np.hstack((velo_new_data, velo_labels))
