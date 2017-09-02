@@ -8,8 +8,11 @@ Label KITTI point cloud (3d) drivable area using provided image annotations (2d)
 # How it Works
 
 1. Project point cloud onto the camera, using calibration information.
+![scans](https://user-images.githubusercontent.com/2068077/29998238-d66b1546-8fda-11e7-9d54-0716afb7b0c2.jpg)
 2. Use image annotations to associate points to labels, `drivable` or otherwise.
+![label](https://user-images.githubusercontent.com/2068077/29998236-d446d3fe-8fda-11e7-9c87-ab54634c5239.jpg)
 3. Save point cloud with associated labels.
+![pc_label](https://user-images.githubusercontent.com/2068077/29998237-d585bdde-8fda-11e7-90b9-2e1b4479eb37.jpg)
 
 # Usage
 
